@@ -1,0 +1,142 @@
+﻿@model IEnumerable<AURMS.Models.ReservationInformation>
+
+@{
+    ViewBag.Title = "History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />
+
+
+@*<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="row">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="" class="navbar-brand">LOGO HERE</a>
+                </div>
+            </div>
+
+            <div class="col-md-10 col-sm-10 col-xs-12">
+                <div class="navbar-collapse collapse menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="~/USERrecord/UserPending" id="pendingButton" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/pending.png" style="height: 36px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 80px; ">PENDING</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../USERrecord/History" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/history.png" style="height: 36px;" padding-left 13px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 90px;  ">HISTORY</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../USERreservation/index" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/reserve.png" style="height: 35px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 90px; ">RESERVE</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/logout.png" style="height: 34px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 80px; ">LOGOUT</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </div><!-- /.row -->
+    </div>
+</nav>*@
+
+
+
+
+<body>
+    <table style="margin-top: 100px; font-size: 15px;" class="table">
+        <tr>
+
+            <th>
+                Room
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                From
+            </th>
+            <th>
+                To
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Detail)
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoomNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EndTime)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Detail)
+                    </td>*@
+                <td>
+
+                    @if (item.Status > 0 && item.Status < 999)
+                    { <span class="label label-primary">Waiting</span>}
+                    else if (item.Status == 999)
+                    { <span class="label label-warning">1st Approval</span>}
+                    else if (item.Status == 1000)
+                    { <span class="label label-success">Approved</span>}
+                    else
+                    { <span class="label label-danger">Rejected</span>}
+
+
+                </td>
+
+            </tr>
+        }
+
+
+    </table>
+</body>

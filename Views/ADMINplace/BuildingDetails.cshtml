@@ -1,0 +1,80 @@
+﻿@model IEnumerable<AURMS.Room>
+
+@{
+    ViewBag.Title = "BuildingDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+<form action="~/ADMINplace/CreateRoom" style="margin-top: 50px;">
+    <span class="btn-group">
+        <input type="submit" id="createButton" value="+CREATE ROOM" class="login_button">
+    </span>
+</form>
+<table class="table" style="margin-top: 30px;">
+   
+    <tr>
+        <th>
+            Room Type
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Floor)
+        </th>
+        <th>
+            Room Name
+        </th>
+        <th>
+            Open Time
+        </th>
+        <th>
+            Close Time
+        </th>
+        <th>
+            Seat
+        </th>
+       
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @**Html.DisplayFor(modelItem => item.RoomTypeID)*@
+            @if (item.RoomTypeID == 1)
+            {
+                <p>Lecture</p>
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Floor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpenTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CloseTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Seat)
+        </td>
+        <td>
+                @Html.ActionLink("Details", "RoomDetails", new { id = item.RoomID })
+                
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditRoom", new { id = item.RoomID }) 
+        </td>
+        <td>
+                <div onclick="return confirm('Are you sure?')">
+                    <span class="label label-danger">@Html.ActionLink("Delete", "DeleteRoom", new { id = item.RoomID })</span>
+                </div>
+        </td>
+    </tr>
+}
+
+</table>

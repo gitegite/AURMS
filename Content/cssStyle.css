@@ -1,0 +1,250 @@
+﻿@import url(https://fonts.googleapis.com/css?family=Roboto:500,400);
+body{
+  	background-color: white;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    color: black;
+    font-weight: 300;
+ }
+
+.top-menu{
+    float:right;
+    margin-top: -70px;
+    
+}
+.top-menu ul li {
+    display:inline-block;
+}
+.top-menu ul li a{
+    font-size:16px;
+    padding: 30px;
+    display:block;
+    font-weight: 600;
+}
+.top-menu ul li.active a{
+    background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);
+    color:#fff;
+    
+    font-weight: 600;
+}
+
+.container{
+    right: 0 px;
+    top: 0px;
+}
+
+.Header{
+   width: 100%;
+   height: 80px;
+   background: -webkit-linear-gradient(top left, #53e3a6 100%);
+   background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);
+   background-color: #53e3a6;
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   border: 1px;
+   border-bottom-right-radius: 5px;
+   padding: 0px 0px 0px 30px;
+}
+
+
+
+
+.submitBtn{
+    
+    background:  rgba(255, 255, 255, 0.2);
+    border: 0px;
+    padding: 10px 15px 10px 15px;
+    color: #53e3a6;
+    border-radius: 3px;
+    width: 300px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 0 3px #000;
+   
+}
+
+
+
+.all-Create-Page{
+    margin-top: 70px; 
+    margin-left: 100px; 
+    font-size: 15px;
+}
+
+/*--------------Login Page------------------*/
+
+.heading {
+    background: #b9f4f6;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    padding: 1.5em;
+    margin-top: 4%;
+    width: 27%;
+    margin-left: 780px;
+
+}
+
+
+.logo{
+    
+    font-style: initial;
+    color: gray;
+    border:0 solid #fff; 
+    border-bottom-width:1px;
+    padding-bottom:10px;
+    text-align: center;
+}
+
+
+
+.login{
+   
+    background-color: #EDEDED;
+    padding-top: 10px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-radius: 15px;
+    border-color: #d2d2d2;
+    height: 300px;
+    border-width: 25px;
+    box-shadow: 1px 1px 1px 1px #cfcfcf;
+   
+}
+
+
+.login_username{
+    
+    width: 250px;
+    outline: 0;
+    border: 1px solid rgb(210, 215, 211);
+    background: snow;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto -10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: gray;
+    font-weight: 300;
+ }
+
+.login_username:hover{
+    border: 1px solid rgb(239, 72, 54);
+}
+
+
+
+.login_password{
+    
+    
+    width: 250px;
+    outline: 0;
+    border: 1px solid rgb(210, 215, 211);
+    background: snow;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto -10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: gray;
+    font-weight: 300;
+   
+}
+
+.login_password:hover{
+    border: 1px solid rgb(239, 72, 54);
+}
+
+.login_button{
+    
+    outline: 0;
+    background-color: rgb(239, 72, 54);
+    border: 0;
+    padding: 10px 15px;
+    color: snow;
+    border-radius: 3px;
+    width: 250px;
+    cursor: pointer;
+    font-size: 18px;
+   
+}
+
+.login_button:hover {
+    background-color: rgb(217, 30, 24);
+}
+
+
+.login-wrapper{
+    
+    background: #50a3a2;
+    background: -webkit-linear-gradient(top left, #50a3a2 0%, #53e3a6 100%);
+    background: linear-gradient(to bottom right, #50a3a2 0%, #53e3a6 100%);
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+     height: 400px;
+    margin-top: -200px;
+    overflow: hidden;
+
+}
+
+.login-container {
+    
+    padding-top: 40px;
+    padding-left: 425px;
+    position: fixed;
+}
+ 
+}
+
+.container h1 {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: white;
+    
+}
+
+.container h2 {
+    font-size: 28px;
+    color: #53e3a6;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+
+
+.style-nav{
+    background: #F64747;
+    color: white;
+   
+    
+}
+
+
+li:hover {
+    background: #E74C3C;
+}
+
+.scheduler_body {
+
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+ 
+.scheduler_container{
+    width:100%;
+    height:600px;
+    border:1px solid #aeaeae;
+}
+
+
+
+

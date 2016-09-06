@@ -1,0 +1,48 @@
+﻿@model IEnumerable<AURMS.Campus>
+
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+<div class="table-responsive">
+    
+    <table class="table" style="margin-top: 50px; width: 100%;">
+        
+        <tr>
+            <th style="border-top: none;">
+                <form action="~/ADMINplace/CreateCampus">
+                    <span class="btn-group">
+                        <input type="submit" id="createButton" value="+CREATE CAMPUS" class="login_button">
+                    </span>
+                </form>
+            </th>
+            
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CampusName)
+
+                </td>
+                <td>
+                    @Html.ActionLink("Buildings", "CampusDetails", new { id = item.CampusID })
+                    
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "EditCampus", new { id = item.CampusID })
+                </td>
+                <td>
+                    <div onclick="return confirm('Are you sure?')">
+                        <span class="label label-danger">@Html.ActionLink("Delete", "DeleteCampus", new { id = item.CampusID })</span>
+                    </div>
+                </td>
+                
+            </tr>
+        }
+
+    </table>
+</div>

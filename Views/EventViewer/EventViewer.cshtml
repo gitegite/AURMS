@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AURMS.Models.EventReservation>
+
+@{
+    ViewBag.Title = "EventsPickerView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    .event {
+        border-radius: 10px;
+        border: 2px solid #73AD21;
+        padding-right: 5px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<body>
+
+    <h2>EventViewer</h2>
+    <div class="container-fluid">
+        @{
+
+            int eventLength = Model.Count();
+            int eventNum = 1;
+            int j = 0;
+            while (j < eventLength)
+            {
+                <div class="row" style="padding-bottom: 15px;">
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class=" col-md-3">
+                                <div class="event">
+                                    <div style="text-align:center">@item.EventName</div>
+                                    <div>@item.EventStartDate to @item.EventEndDate</div>
+                                    <div>
+                                        @if (item.EventReservations != null)
+                                        {
+                                            foreach (var reservation in item.EventReservations)
+                                            {   <div class="reservation">
+                                                <div>@reservation.RoomNumber</div>
+                                                <div>@reservation.StartTime to @reservation.EndTime</div>
+                                                <div>@reservation.Detail</div>
+                                            </div>
+                                            }
+                                        }
+                                    </div>
+                                    <hr />
+                                </div>
+                            </div>
+                        }
+                        eventNum++;
+                        if (eventNum > eventLength)
+                        {
+
+                            break;
+                        }
+                    }
+                </div>
+                    j = eventNum;
+            }
+
+        }
+        @*<div class="row">
+                <div class="col-md-3">
+                    <div class="event">Event1</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="event">Event2</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="event">Event3</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="event">Event4</div>
+                </div>
+            </div>*@
+    </div>
+</body>

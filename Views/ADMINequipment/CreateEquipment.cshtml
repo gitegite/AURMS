@@ -1,0 +1,61 @@
+﻿@model AURMS.Equipment
+
+@{
+    ViewBag.Title = "Create Equipment";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+@*<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />*@
+
+<script type="text/javascript">
+
+    $(function () {
+        $.getJSON("StaffGroupList", function (data) {
+            var items = "<option></option>";
+            $.each(data, function (i, StaffGroup) {
+                items += "<option value='" + StaffGroup.Value + "'>" + StaffGroup.Text + "</option>";
+            });
+            $("#StaffGroup").html(items);
+        });
+    });
+</script>
+
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal" style="margin-top: 70px; margin-left: 100px; font-size: 15px;">
+
+            <div class="form-group">
+                <label for="StaffGroup" class="control-label col-md-2">StaffGroup</label>
+                <div class="col-md-10">
+                    <select id="StaffGroup" name="StaffGroup" class="form-control"></select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EquipmentName, "Equipment Name: ", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EquipmentName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EquipmentName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="submitBtn" />
+                </div>
+            </div>
+        </div>
+    }
+
+    
+</body>
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>*@

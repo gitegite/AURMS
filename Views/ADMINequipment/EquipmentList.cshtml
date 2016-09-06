@@ -1,0 +1,59 @@
+﻿@model IEnumerable<AURMS.Equipment>
+
+
+@{
+    ViewBag.Title = "Equipment List";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+@*<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />*@
+
+
+
+<body>
+    
+    <form action="~/ADMINequipment/CreateEquipment" style="margin-top: 50px;">
+        <span class="btn-group">
+            <input type="submit" id="createButton" value="+CREATE EQUIPMENT" class="login_button">
+        </span>
+    </form>
+    <center>
+       
+        <table style="margin-top: 30px; font-size: 15px;" class="table">
+            <tr>
+                <th>
+                    Staff Group
+                </th>
+                <th>
+                    Equipment Name
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StaffGroupID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EquipmentName)
+                    </td>
+                    <td>
+                       
+
+                        @Html.ActionLink("Delete", "Delete", new { id = item.EquipmentID })
+                    </td>
+                </tr>
+            }
+
+
+        </table>
+
+    </center>
+</body>

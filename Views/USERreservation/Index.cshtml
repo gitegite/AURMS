@@ -1,0 +1,372 @@
+﻿@model AURMS.ReservationRecord
+
+@{
+    ViewBag.Title = "Reservation";
+    if (Int64.Parse(Session["usergroup"].ToString().Trim()) > 200)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_LayoutUser.cshtml";
+    }
+
+}
+
+@section autocomplete{
+    <script>
+        $(function () {
+            $.getJSON("EquipmentList", function (data) {
+                $("#equipment").autocomplete({
+                    source: data
+                });
+            });
+        });
+    </script>
+}
+
+@section datepicker{
+    <!--<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="~/scripts/jquery-ui.js"></script>
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $.getJSON("CampusList", function (data) {
+                var items = "<option></option>";
+                $.each(data, function (i, campus) {
+                    items += "<option value='" + campus.Value + "'>" + campus.Text + "</option>";
+                });
+                $("#Campus").html(items);
+            });
+
+            $.getJSON("EquipmentList", function (data) {
+                //var items = "<option></option>";
+                //$.each(data, function (i, equipment) {
+                //    items += "<option value='" + equipment.Value + "'>" + equipment.Text + "</option>";
+                //});
+                //$("#Equipments").html(items);
+                var toAdd = "";
+                $.each(data, function (i, value) {
+                    toAdd += "<input type='checkbox' name =\"chk" + value.Text + "\"value=\"" + value.Value + "\"/>" + value.Text + "<input type='number' name=\"num" + value.Text + "\" style='width:10%'/>" + "<br>";
+                });
+
+                $("#chkbox").append(toAdd);
+            });
+
+
+            $("#Campus").change(function () {
+                var items = "<option></option>";
+                $("#Buildings").html(items);
+                $("#Rooms").html(items);
+                $("#Date").val('');
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+                $.getJSON("BuildingList", { CampusID: $("#Campus").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, building) {
+                        items += "<option value='" + building.Value + "'>" + building.Text + "</option>";
+                    });
+                    $("#Buildings").html(items);
+                });
+            });
+
+            $("#Buildings").change(function () {
+                var items = "<option></option>";
+                $("#RoomID").html(items);
+                $("#Date").val('');
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+                $.getJSON("RoomList", { BuildingID: $("#Buildings").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, room) {
+                        items += "<option value='" + room.Value + "'>" + room.Text + "</option>";
+                    });
+                    console.log(items);
+                    $("#RoomID").html(items);
+                });
+            });
+
+            //$("#Seats").change(function () {
+            //    alert($("#Seats").val());
+            //    var items = "<option></option>";
+            //    $("#Rooms").html(items);
+            //    $("#Date").val('');
+            //    $("#StartTimes").html(items);
+            //    $("#EndTimes").html(items);
+            //    $.getJSON("RoomList", { BuildingID: $("#Buildings").val() ,Seat: $("#Seats").val() }, function (data) {
+            //        var items = "<option></option>";
+            //        $.each(data, function (i, room) {
+            //            items += "<option value='" + room.Value + "'>" + room.Text + "</option>";
+            //        });
+            //        $("#Rooms").html(items);
+            //    });
+            //});
+
+            $("#RoomID").change(function () {
+                $(function () {
+                    $("#Date").datepicker();
+                    $("#Date").val('');
+                });
+                var items = "<option></option>";
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+            });
+
+
+            $("#Date").change(function () {
+                var items = "<option></option>";
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+                $.getJSON("StartTimeList", { RoomID: $("#RoomID").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, time) {
+                        items += "<option value=" + time.Text + ">" + time.Text + "</option>";
+                    });
+                    $("#StartTimes").html(items);
+                });
+            });
+
+
+            $("#StartTimes").change(function () {
+                var items = "<option></option>";
+                $("#EndTimes").html(items);
+                $.getJSON("EndTimeList", { StartTime: $("#StartTimes option:selected").text(), RoomID: $("#RoomID").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, time) {
+                        items += "<option value='" + time.Text + "'>" + time.Text + "</option>";
+                    });
+                    $("#EndTimes").html(items);
+                });
+            });
+        });
+
+        var equipmentList = []
+
+        function AddEquipment() {
+            //value,amount;value,amount
+            var e = document.getElementById("Equipments");
+            var equipmentValue = e.options[e.selectedIndex].value;
+            var equipmentName = e.options[e.selectedIndex].text;
+            var a = document.getElementById("equantity");
+            var amount = a.value;
+            var d = document.getElementById("AddedEquipment");
+
+            var info = { EquipmentName: equipmentName, Amount: amount, Value: equipmentValue };
+            equipmentList.push(info);
+            e.value = "";
+            a.value = "";
+
+            var myDiv = document.getElementById("AddedEquipment");
+
+            var newDiv = document.createElement('div');
+            var eName = document.createElement('h4');
+            eName.className = "equipmentName";
+            eName.innerHTML = equipmentName + " : ";
+            var eAmount = document.createElement('h4');
+            eAmount.innerHTML = amount.toString();
+            eAmount.className = "equipmentAmount";
+            var deleteButton = document.createElement('button');
+            deleteButton.innerHTML = "Delete";
+            var toAppend = document.createElement('div');
+            toAppend.className = equipmentName + "-" + amount.toString();
+            toAppend.innerHTML = equipmentName + " : " + equipmentValue + "," + amount.toString() + "<button class = 'deletebtn' type='button'>Delete</button>";
+
+            //newDiv.appendChild(eName);
+            //newDiv.appendChild(eAmount);
+            //newDiv.appendChild(deleteButton);
+            //
+            myDiv.appendChild(toAppend);
+
+
+        }
+
+        $(document).ready(function () {
+            $("#AddedEquipment").on("click", "button.deletebtn", function () {
+                //alert($(this).parent().attr('class'));
+                $(this).parent().remove();
+                var todelete = $(this).parent().attr('class').toString();
+                var equipment = todelete.split("-");
+
+                $.each(equipmentList, function (key, value) {
+                    if (equipment[0] == value.EquipmentName && equipment[1] == value.Amount) {
+                        alert(value.EquipmentName + "," + value.Amount);
+                        equipmentList.splice(key, 1);
+
+                    }
+                });
+
+            });
+            var equipmentString = "";
+            $("#confirmEquip").click(function () {
+                $('input:checked').each(function () {
+                    var eValue = $(this).attr("value");
+                    var eAmount = $(this).next().val();
+                    alert("Equipment(s) Added!")
+                    equipmentString += eValue + "," + eAmount + ";";
+                });
+                $.each(equipmentList, function (key, value) {
+                    equipmentString += value.Value + "," + value.Amount + ";";
+                    $("#ulEquipment").append("<li>" + value.EquipmentName + ":" + value.Amount + "</li>")
+                });
+                $("#EquipmentString").val(equipmentString);
+
+                $("#AddedEquipment").html("");
+                equipmentList = [];
+            });
+        });
+
+
+        function enterPress(e) {
+            if (e.which == 13) {
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#submitButton').focus().click();//give your submit an ID
+            }
+        }
+        $('reserveForm').keypress(enterPress);
+
+    </script>
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+@*<script src="~/scripts/UserScript.js"></script>
+    <link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+    <link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />*@
+
+
+
+<script>
+    $(document).ready(function () {
+        if (sessionStorage.getItem("EventName") != null && sessionStorage.getItem("EventID") != null) {
+            $("#EventName").val(sessionStorage.getItem("EventName").toString());
+            $("#EventID").val(sessionStorage.getItem("EventID").toString());
+        }
+
+    });
+
+</script>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <div id="reserveForm" class="form-horizontal" style="margin-top: 90px; margin-left: 100px; font-size: 15px;">
+
+        <hr />
+        <div class="form-group">
+            <label for="EventName" class="control-label col-md-2">Event Name</label>
+            <div class="col-md-5">
+                @*<label id="EventName" name="EventName" class="form-control"></label>*@
+                <input id="EventName" name="EventName" htmlattributes="{ class = form-control }">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="EventID" class="control-label col-md-2">Event ID</label>
+            <div class="col-md-5">
+                @*<label id="EventID" name="EventID" class="form-control"></label>*@
+                <input id="EventID" name="EventID" htmlattributes="{ class = form-control }">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Campus" class="control-label col-md-2">Campus</label>
+            <div class="col-md-5">
+                <select id="Campus" name="Campus" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Buildings" class="control-label col-md-2">Building</label>
+            <div class="col-md-5">
+                <select id="Buildings" name="Building" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Rooms" class="control-label col-md-2">Room</label>
+            <div class="col-md-5">
+                <select id="RoomID" name="RoomID" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Dates" class="control-label col-md-2">Date</label>
+            <div class="col-md-5">
+                <input type="text" id="Date" name="Date" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="StartTimes" class="control-label col-md-2">From</label>
+            <div class="col-md-5">
+                <select id="StartTimes" name="StartTime" class="form-control"></select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="EndTimes" class="control-label col-md-2">To</label>
+            <div class="col-md-5">
+                <select id="EndTimes" name="EndTime" class="form-control"></select>
+            </div>
+        </div>
+        <div class="form-group" style="visibility:hidden">
+            <label for="Equipments" class="control-label col-md-2">Equipment</label>
+            <div class="col-md-5">
+                <input id="EquipmentString" name="Equipment" htmlattributes="{ class = form-control }" style="width:60%">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Details" class="control-label col-md-2">Detail</label>
+            <div class="col-md-5">
+                <textarea cols="50" rows="5" htmlattributes="{ class = form-control }" id="Detail"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Details" class="control-label col-md-2">Equipment</label>
+            <div class="col-md-5">
+                <div id="chkbox">
+
+                </div>
+                <div>
+                    <button id="confirmEquip" type="button">Confirm Equipment</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" id="submitButton" value="Submit" class="submitBtn" />
+            </div>
+        </div>
+    </div>
+    <br>
+
+
+
+
+
+
+
+}
+
+<div>
+    <!--@Html.ActionLink("Back to List", "Pending")-->
+</div>
+

@@ -1,0 +1,72 @@
+﻿@model IEnumerable<AURMS.Building>
+
+@{
+    ViewBag.Title = "CampusDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+       
+  
+
+<form action="~/ADMINplace/CreateBuilding" style="margin-top: 50px;">
+    <span class="btn-group">
+        <input type="submit" id="createButton" value="+CREATE BUILDING" class="login_button">
+    </span>
+</form>
+<table class="table" style="margin-top: 30px;">
+    
+    <tr>
+        <th>
+            Building Name
+        </th>
+        
+        <th>
+            Min Floor
+        </th>
+        <th>
+            Max Floor
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.BuildingName)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.MinFloor)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxFloor)
+            </td>
+            <td>
+                @Html.ActionLink("Rooms", "BuildingDetails", new { id = item.BuildingID })
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBuilding", new { id = item.BuildingID }) 
+               
+               
+            </td>
+            <td>
+                <div onclick="return confirm('Are you sure?')">
+                    <span class="label label-danger">@Html.ActionLink("Delete", "DeleteBuiding", new { id = item.BuildingID })</span>
+                </div>
+            </td>
+        </tr>
+    }
+
+</table>

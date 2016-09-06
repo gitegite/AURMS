@@ -1,0 +1,378 @@
+﻿@model AURMS.ReservationRecord
+
+@{
+    ViewBag.Title = "Reservation";
+}
+
+@section autocomplete{
+    <script>
+    $(function () {
+        $.getJSON("EquipmentList", function (data) {
+            $("#equipment").autocomplete({
+                source: data
+            });
+        });
+    });
+    </script>
+}
+
+@section datepicker{
+    <!--<link href="@Url.Content("~/Content/jquery-ui.css")" rel="stylesheet" type="text/css" />-->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="~/scripts/jquery-ui.js"></script>
+}
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(function () {
+
+            $.getJSON("CampusList", function (data) {
+                var items = "<option></option>";
+                $.each(data, function (i, campus) {
+                    items += "<option value='" + campus.Value + "'>" + campus.Text + "</option>";
+                });
+                $("#Campus").html(items);
+            });
+
+            $.getJSON("EquipmentList", function (data) {
+                var items = "<option></option>";
+                $.each(data, function (i, equipment) {
+                    items += "<option value='" + equipment.Value + "'>" + equipment.Text + "</option>";
+                });
+                $("#Equipments").html(items);
+            });
+
+
+            $("#Campus").change(function () {
+                var items = "<option></option>";
+                $("#Buildings").html(items);
+                $("#Rooms").html(items);
+                $("#Date").val('');
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+                $.getJSON("BuildingList", { CampusID: $("#Campus").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, building) {
+                        items += "<option value='" + building.Value + "'>" + building.Text + "</option>";
+                    });
+                    $("#Buildings").html(items);
+                });
+            });
+
+            $("#Buildings").change(function () {
+                var items = "<option></option>";
+                $("#RoomID").html(items);
+                $("#Date").val('');
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+                $.getJSON("RoomList", { BuildingID: $("#Buildings").val()}, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, room) {
+                        items += "<option value='" + room.Value + "'>" + room.Text + "</option>";
+                    });
+                    console.log(items);
+                    $("#RoomID").html(items);
+                });
+            });
+
+            //$("#Seats").change(function () {
+            //    alert($("#Seats").val());
+            //    var items = "<option></option>";
+            //    $("#Rooms").html(items);
+            //    $("#Date").val('');
+            //    $("#StartTimes").html(items);
+            //    $("#EndTimes").html(items);
+            //    $.getJSON("RoomList", { BuildingID: $("#Buildings").val() ,Seat: $("#Seats").val() }, function (data) {
+            //        var items = "<option></option>";
+            //        $.each(data, function (i, room) {
+            //            items += "<option value='" + room.Value + "'>" + room.Text + "</option>";
+            //        });
+            //        $("#Rooms").html(items);
+            //    });
+            //});
+
+            $("#RoomID").change(function () {
+                $(function () {
+                    $("#Date").datepicker();
+                    $("#Date").val('');
+                });
+                var items = "<option></option>";
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+            });
+
+
+            $("#Date").change(function () {
+                var items = "<option></option>";
+                $("#StartTimes").html(items);
+                $("#EndTimes").html(items);
+                $.getJSON("StartTimeList", { RoomID: $("#RoomID").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, time) {
+                        items += "<option value=" + time.Text + ">" + time.Text + "</option>";
+                    });
+                    $("#StartTimes").html(items);
+                });
+            });
+
+
+            $("#StartTimes").change(function () {
+                var items = "<option></option>";
+                $("#EndTimes").html(items);
+                $.getJSON("EndTimeList", { StartTime: $("#StartTimes option:selected").text(), RoomID: $("#RoomID").val() }, function (data) {
+                    var items = "<option></option>";
+                    $.each(data, function (i, time) {
+                        items += "<option value='" + time.Text + "'>" + time.Text + "</option>";
+                    });
+                    $("#EndTimes").html(items);
+                });
+            });
+        });
+
+        var equipmentList = []
+
+        function AddEquipment() {
+
+            var e = document.getElementById("Equipments");
+            var equipmentValue = e.options[e.selectedIndex].value;
+            var equipmentName = e.options[e.selectedIndex].text;
+            var a = document.getElementById("equantity");
+            var amount = a.value;
+            var d = document.getElementById("AddedEquipment");
+
+            var info = { EquipmentName: equipmentName, Amount: amount };
+            equipmentList.push(info);
+            e.value = "";
+            a.value = "";
+
+            var myDiv = document.getElementById("AddedEquipment");
+
+            var newDiv = document.createElement('div');
+            var eName = document.createElement('h4');
+            eName.className = "equipmentName";
+            eName.innerHTML = equipmentName + " : ";
+            var eAmount = document.createElement('h4');
+            eAmount.innerHTML = amount.toString();
+            eAmount.className = "equipmentAmount";
+            var deleteButton = document.createElement('button');
+            deleteButton.innerHTML = "Delete";
+            var toAppend = document.createElement('div');
+            toAppend.className = equipmentName + "-" + amount.toString();
+            toAppend.innerHTML = equipmentName + " : " + amount.toString() + "<button class = 'deletebtn' type='button'>Delete</button>";
+
+            //newDiv.appendChild(eName);
+            //newDiv.appendChild(eAmount);
+            //newDiv.appendChild(deleteButton);
+            //
+            myDiv.appendChild(toAppend);
+
+
+        }
+
+        $(document).ready(function () {
+            $("#AddedEquipment").on("click", "button.deletebtn", function () {
+                //alert($(this).parent().attr('class'));
+                $(this).parent().remove();
+                var todelete = $(this).parent().attr('class').toString();
+                var equipment = todelete.split("-");
+
+                $.each(equipmentList, function (key, value) {
+                    if (equipment[0] == value.EquipmentName && equipment[1] == value.Amount) {
+                        alert(value.EquipmentName + "," + value.Amount);
+                        equipmentList.splice(key, 1);
+
+        }
+                });
+
+            });
+        });
+
+
+        function enterPress(e) {
+            if (e.which == 13) {
+                e.preventDefault(); //stops default action: submitting form
+                $(this).blur();
+                $('#submitButton').focus().click();//give your submit an ID
+            }
+        }
+            $('reserveForm').keypress(enterPress);
+
+    </script>
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+<script src="~/scripts/UserScript.js"></script>
+<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />
+
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="row">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="" class="navbar-brand">LOGO HERE</a>
+                </div>
+            </div>
+
+            <div class="col-md-10 col-sm-10 col-xs-12">
+                <div class="navbar-collapse collapse menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="~/USERrecord/UserPending" id="pendingButton" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/pending.png" style="height: 36px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 80px; ">PENDING</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../USERrecord/History" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/history.png" style="height: 36px;" padding-left 13px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 90px;  ">HISTORY</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../USERreservation/index" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/reserve.png" style="height: 35px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 90px; ">RESERVE</span>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/logout.png" style="height: 34px;" />
+                                    <span style="margin-top: 1px;  float: left; text-align: center;  width: 80px; ">LOGOUT</span>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </div><!-- /.row -->
+    </div>
+</nav>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <div id="reserveForm" class="form-horizontal" style="margin-top: 90px; margin-left: 100px; font-size: 15px;">
+
+
+        <hr />
+        <div class="form-group">
+            <label for="EventName" class="control-label col-md-2">EventName</label>
+            <div class="col-md-5">
+                <label id="EventName" name="EventName" class="form-control">@ViewBag.EventName</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="EventID" class="control-label col-md-2">EventID</label>
+            <div class="col-md-5">
+                <label id="EventID" name="EventID" class="form-control">@ViewBag.EventID</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="Campus" class="control-label col-md-2">Campus</label>
+            <div class="col-md-5">
+                <select id="Campus" name="Campus" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Buildings" class="control-label col-md-2">Building</label>
+            <div class="col-md-5">
+                <select id="Buildings" name="Building" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Rooms" class="control-label col-md-2">Room</label>
+            <div class="col-md-5">
+                <select id="RoomID" name="RoomID" class="form-control"></select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Dates" class="control-label col-md-2">Date</label>
+            <div class="col-md-5">
+                <input type="text" id="Date" name="Date" class="form-control">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="StartTimes" class="control-label col-md-2">From</label>
+            <div class="col-md-5">
+                <select id="StartTimes" name="StartTime" class="form-control"></select>
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="EndTimes" class="control-label col-md-2">To</label>
+            <div class="col-md-5">
+                <select id="EndTimes" name="EndTime" class="form-control"></select>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            <label for="Details" class="control-label col-md-2">Detail</label>
+            <div class="col-md-5">
+                <textarea cols="50" rows="5" htmlattributes="{ class = form-control }" id="Detail"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-2">
+                <input type="submit" id="submitButton" value="Submit" class="submitBtn" />
+            </div>
+        </div>
+    </div>
+    <br>
+    <div style="margin-left:700px; margin-top: -400px; font-size: 15px;">
+
+        <div>
+            <label for="tags">Equipment  </label>
+            <select id="Equipments" name="Room" class="form-control"></select>
+            <input type="text" id="equantity" cols="2" class="form-control">
+            <button type="button" id="Add" onclick="AddEquipment()">Add</button>
+        </div>
+
+        <div id="AddedEquipment">
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+}
+
+<div>
+    <!--@Html.ActionLink("Back to List", "Pending")-->
+</div>
+

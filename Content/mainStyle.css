@@ -1,0 +1,226 @@
+﻿body{
+  	
+    font-family: 'Open Sans', sans-serif;
+    font-size: 100%;
+  	background: #FFf;
+	
+}
+
+.Header{
+   width: 100%;
+   height: 90px;
+   /*background: -webkit-linear-gradient(top left, #53e3a6 100%);
+   background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);*/
+   background-color: #2A2E33;
+   position: fixed;
+   top: 0px;
+   left: 0px;
+   border: 1px;
+   border-top-right-radius: 0px;
+   padding: 0px 0px 0px 30px;
+}
+
+
+
+
+
+/*--------------Login Page------------------*/
+.logo{
+    color: #ffffff;
+    font-family: Mohave;
+    font-style: normal;
+    font-size: 64px;
+    font-weight: 800;
+}
+
+.logoPage{
+    color: gold;
+    font-family: Mohave;
+    font-style: normal;
+    font-size: 64px;
+    font-weight: 800;
+}
+
+.login{
+   
+    background-color: #fff;
+    border-bottom: 2px solid #C5C5C8;
+    border: 1px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    border-radius: 5px;
+    text-align: center;
+    color: #36383C;
+    text-shadow: 0 1px 0 #FFF;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px 40px 20px 40px;
+    margin-top: 0%;
+    box-shadow: 0 0 3px #000;
+    
+}
+
+
+.login_username{
+    
+    padding: 10px 15px 10px 15px;
+    border-width: 0px;
+    text-align: center;
+    color: #414141;
+    font-size: 16px;
+    margin: 0 auto 10px auto;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    border-radius: 5px;
+    opacity: 0.5;
+}
+
+
+
+.login_password{
+    
+    padding: 10px 15px 10px 15px;
+    border-width: 0px;
+    text-align: center;
+    color: #414141;
+    font-size: 16px;
+    margin: 0 auto 10px auto;
+    outline: none;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #b7b7b7;
+    border-radius: 5px;
+    opacity: 0.6;
+   
+}
+
+.login_button{
+    
+    background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);
+    border: 1px;
+    padding: 10px 15px 10px 15px;
+    color: #53e3a6;
+    border-radius: 3px;
+    width: 229px;
+    cursor: pointer;
+    font-size: 18px;
+    box-shadow: 0 0 3px #000;
+   
+}
+
+.login_button:hover{
+ 
+    background: linear-gradient(to bottom, #50a3a2 0%, #63e9cc 100%);
+
+}
+
+.login-wrapper{
+    
+    background: linear-gradient(to bottom, #50a3a2 0%, #63e9cc 100%);
+    position: absolute;
+    top: 14%;
+    left: 0;
+    width: 100%;
+    height: 400px;
+    margin:0 auto;
+    overflow: hidden;
+
+}
+
+.login-container {
+    max-width: 600px;
+    margin: 0 auto;
+    -webkit-transition-duration: 1s;
+          transition-duration: 1s;
+   -webkit-transition-timing-function: ease-in-out;
+          transition-timing-function: ease-in-out;
+     padding: 60px 0;
+    height: 400px;
+    text-align: center;
+ 
+}
+
+.container h1 {
+    font-size: 24px;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.container h2 {
+    font-size: 28px;
+    color: #53e3a6;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+/*--------------Pending Page------------------*/
+
+.allTable{
+   
+    background-color: transparent;
+    border: 1px solid #ddd;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 20px;
+    margin-top: 18%;
+    width: 100%;
+    height: auto;
+    overflow: auto;
+    border-radius: 3px 3px 3px;
+}
+
+.Header-dec1 nav ul li a {
+    height: 60px;
+    width: 100px;
+    display: block;
+    padding: 17px 20px;
+    color: white;
+
+    border-top: 3px solid #373948;
+    border-bottom: 3px solid #373948;
+ 
+}
+
+.Header-dec1 nav ul {
+    height: 70px;
+    float: right ;
+    height: 0px;
+    display: inline-block;
+}
+
+.Header-dec1 nav ul li {
+    height: 0px;
+    display: inline-block;
+}
+
+.Header-dec1 nav ul li a.link-1 { 
+    background-color: #00c0e4; 
+    background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);
+
+}
+.Header-dec1 nav ul li a.link-2 { 
+    background-color: #5bd999; 
+    background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);
+
+}
+
+/*--------------Admin Reservation Page------------------*/
+
+
+
+/*--------------User Reservation Page------------------*/
+.booking-wrapper{
+    
+    background: linear-gradient(to bottom, #50a3a2 0%, #63e9cc 100%);
+    position: absolute;
+    top: 13%;
+    left: 0;
+    width: 100%;
+    height: 450px;
+    margin:0 auto;
+    overflow: hidden;
+
+}

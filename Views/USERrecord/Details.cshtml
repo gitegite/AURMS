@@ -1,0 +1,111 @@
+﻿@model AURMS.Models.ReservationInformation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+}
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+<div style="margin-top: 50px;">
+    
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Reservation ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentID)
+        </dd>
+
+        <dt>
+            Room Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+
+        @*<dt>
+            Seat
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Seat)
+        </dd>*@
+
+        <dt>
+            Date
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            Start Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            End Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            Detail
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detail)
+        </dd>
+
+        <dt>
+            Equipment
+        </dt>
+        
+        @if (Model.EquipmentList.Count == 0)
+        {
+            <dd>
+                -
+            </dd>
+        }
+       
+        @foreach (var item in Model.EquipmentList)
+        {
+            <dd>
+                @item.EquipmentName ==> @item.EquipmentAmount
+            </dd>
+        }
+        
+
+        <dt>
+            Status
+        </dt>
+
+
+        <dd>
+            Waiting for approval
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @*@using (Html.BeginForm("approve", "ADMINreservation"))
+    {
+        <button name="reservationID" class="submitBtn" style="text-align:center; width: 200px; margin-left: 150px;" value=@Model.ReservationRecordID>Approve</button>
+    }
+
+    @using (Html.BeginForm("reject", "ADMINreservation"))
+    {
+        <button name="reservationRejectID" class="submitBtn" style="text-align:center; width: 200px; margin-left: 150px; margin-top: 10px;" value=@Model.ReservationRecordID>Reject</button>
+    }*@
+</p>

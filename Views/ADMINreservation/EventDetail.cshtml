@@ -1,0 +1,90 @@
+﻿@model AURMS.Models.EventReservation
+@{
+    if (Int64.Parse(Session["usergroup"].ToString()) == 5555)
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+
+<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@Model.EventName</title>
+</head>
+<body>
+    <h2>@Model.EventName</h2> <br />
+    <p>Reserver ID: @Model.EventReserverID</p>
+    <p>Event ID: @Model.EventID</p>
+    <p>Event Name: @Model.EventName</p>
+    <p>Start Date: @Model.EventStartDate</p>
+    <p>End Date: @Model.EventEndDate</p>
+    <br />
+
+    <table style="margin-top: 100px; font-size: 15px;" class="table">
+        <tr>
+            <th>
+                Room
+            </th>
+
+            <th>
+                Date
+            </th>
+
+            <th>
+                Start Time
+            </th>
+
+            <th>
+                End Time
+            </th>
+
+            <th>
+                Status
+            </th>
+        </tr>
+        @foreach (var item in Model.EventReservations)
+        {
+            <tr>
+                <td>
+                    @item.RoomNumber
+                </td>
+
+                <td>
+                    @item.Date
+                </td>
+
+                <td>
+                    @item.StartTime
+                </td>
+
+                <td>
+                    @item.EndTime
+                </td>
+
+                <td>
+                    @if (item.Status == 0) { <span class="label label-danger">Rejected</span> }
+                    else if (item.Status < 999) { <span class="label label-primary">Waiting</span> }
+                    else if (item.Status == 999) { <span class="label label-warning">1st Approval</span> }
+                    else if (item.Status == 1000) { <span class="label label-success">Approved</span> }
+                </td>
+                <td>
+                    
+                    @Html.ActionLink("Detail", "RoomDetailForDirector", new { id = item.ReservationRecordID })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>

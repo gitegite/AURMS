@@ -1,0 +1,23 @@
+﻿body {
+    background-color: transparent;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 300;
+    
+}
+
+.wrapper{
+    background: #53e3a6;
+    background: -webkit-linear-gradient(top left, #53e3a6 100%);
+    background: linear-gradient(to bottom right, #50a3a2 0%, #63e9cc 100%);
+    position: absolute;
+    top: 50%;
+    width: 50%;
+    height: 520px;
+    margin-top: -200px;
+    overflow: hidden;
+}
+
+.seat_Option{
+    margin-top: 50%;
+    margin-left: 50%;
+}

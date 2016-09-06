@@ -1,0 +1,112 @@
+﻿@model AURMS.Models.ReservationInformation
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+<div>
+    <hr>
+    <dl class="dl-horizontal">
+        <dt>
+            Reserver ID
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StudentID)
+        </dd>
+
+        <dt>
+            Room Number
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RoomNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.StartTime)*@
+            Start Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartTime)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.EndTime)*@
+            End Time
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Detail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Detail)
+        </dd>
+
+
+
+        <dt>
+            Equipment
+        </dt>
+
+        @if (Model.EquipmentList.Count == 0)
+        {
+            <dd>
+                -
+            </dd>
+        }
+
+        @foreach (var item in Model.EquipmentList)
+        {
+            <dd>
+                @item.EquipmentName ==> @item.EquipmentAmount
+            </dd>
+        }
+
+
+        <dt>
+            
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @if(Model.Status == 0)
+            {
+                <p>Rejected</p>
+            }
+            else if(Model.Status <= 210)
+            {
+                <p>Waiting for Approval</p>
+            }
+            else if (Model.Status == 999)
+            {
+                <p>1st Approved</p>
+            }
+            else
+            {
+                <p>Approved</p>
+            }
+        </dd>
+
+    </dl>
+</div>
+
+
+

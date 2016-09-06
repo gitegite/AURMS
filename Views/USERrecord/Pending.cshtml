@@ -1,0 +1,258 @@
+﻿@model IEnumerable<AURMS.Models.ReservationInformation>
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+@{
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+
+}
+@*<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/content/bootstrap.min.css")" rel="stylesheet" type="text/css">
+    <link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />*@
+<div class="tabbable" style="margin-top: 80px;">
+    <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs" border none;>
+        <li class="active">
+            <a href="#tab1" data-toggle="tab" style="background: #22A7F0;">
+                <h2 style="color: white; font-size: 18px;">
+                    Pending list
+                </h2>
+            </a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab" style="background: #2ECC71;">
+                <h2 style="color: white; font-size: 18px;">
+                    Approved list
+                </h2>
+            </a>
+        </li>
+        <li>
+            <a href="#tab3" data-toggle="tab" style="background: #F64747;">
+                <h2 style="color: white; font-size: 18px;">
+                    Rejected list
+                </h2>
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1" style="margin-top: 40px;">
+            <section id="pending" style="border: 3px solid #22A7F0; border-radius: 5px;">
+                <div class="row">
+                    <div class="col-lg-12">
+
+
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tr>
+                                    <th>
+                                        Reserver ID
+                                    </th>
+                                    <th>
+                                        Room Number
+                                    </th>
+                                    <th>
+                                        Date
+                                        
+                                    </th>
+                                    <th>
+                                        Start Time
+                                    </th>
+                                    <th>
+                                        End Time
+                                    </th>
+                                    <th>
+                                        Status
+                                    </th>
+                                    <th></th>
+                                </tr>
+
+                                @foreach (var item in Model)
+                                {
+
+                                    <tr>
+                                        @if (item.Status != 0 && item.Status <= 999)
+                                        {
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StudentID)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.RoomNumber)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.Date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.StartTime)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.EndTime)
+                                            </td>
+                                            <td>
+                                                @if (item.Status == 999)
+                                                {
+                                                    <span class="label label-warning">1st Approved</span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="label label-primary">Waiting</span>
+                                                }
+                                                
+                                                @*@Html.DisplayFor(modelItem => item.Status)*@
+                                            </td>
+                                            <td>
+                                                @*@Html.ActionLink("Edit", "Edit", new { id=item.ReservationRecordID }) |*@
+                                               
+                                                @Html.ActionLink("Detail", "Details", new { id = item.ReservationRecordID }) @*|
+                                                    @Html.ActionLink("Delete", "Delete", new { id=item.ReservationRecordID })*@
+                                            </td>
+                                        }
+                                    </tr>
+
+                                }
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="tab-pane" id="tab2" style="margin-top: 40px;">
+            <section id="Approved" style="border: 3px solid #2ECC71; border-radius: 5px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                <div class=" table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Reserver ID
+                            </th>
+                            <th>
+
+                                Room Number
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                Start Time
+                            </th>
+                            <th>
+                                End Time
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @if (item.Status == 1000)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RoomNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndTime)
+                                    </td>
+                                    <td>
+                                        <span class="label label-success">Approved</span>
+                                        @*@Html.DisplayFor(modelItem => item.Status)*@
+                                    </td>
+                                    <td>
+                                        @*@Html.ActionLink("Edit", "Edit", new { id=item.ReservationRecordID }) |*@
+                                        @Html.ActionLink("Detail", "Details2", new { id = item.ReservationRecordID }) @*|
+                                            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationRecordID })*@
+                                    </td>
+                                }
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                   </div> </div>
+            </section>
+        </div>
+        <div class="tab-pane" id="tab3" style="margin-top: 40px;">
+            <section id="Reject" style="border: 3px solid #F64747; border-radius: 5px;">
+                 <div class="row">
+                    <div class="col-lg-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Reserver ID
+                            </th>
+                            <th>
+                                Room Number
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                Start Time
+                            </th>
+                            <th>
+                                End Time
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th></th>
+                        </tr>
+
+
+                        @foreach (var item in Model)
+                        {
+
+                            <tr>
+                                @if (item.Status == 0)
+                                {
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StudentID)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.RoomNumber)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.StartTime)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EndTime)
+                                    </td>
+                                    <td>
+                                        <span class="label label-danger">Rejected</span>
+                                    </td>
+                                    <td>
+                                        @*@Html.ActionLink("Edit", "Edit", new { id=item.ReservationRecordID }) |*@
+                                        @Html.ActionLink("Detail", "Details2", new { id = item.ReservationRecordID }) @*|
+                                            @Html.ActionLink("Delete", "Delete", new { id=item.ReservationRecordID })*@
+                                    </td>
+                                }
+                            </tr>
+
+                        }
+                    </table>
+                </div>
+            </div></div>
+            </section>
+
+        </div>
+    </div>
+</div>
+
+<br />
+<a href="../EventPicker/Index">ALL EVENTS</a>

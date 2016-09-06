@@ -1,0 +1,80 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>RMS Log In</title>>
+    <link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <script>
+
+    function enterPress(e) {
+        if (e.which == 13) {
+            e.preventDefault(); //stops default action: submitting form
+            $(this).blur();
+            $('#loginButton').focus().click();//give your submit an ID
+        }
+    }
+
+    $('loginForm').keypress(enterPress);
+
+
+    $(document).ready(function () {
+        $('#loginButton').click(function () {
+            sessionStorage.UserName = $('#username').val();
+        });
+    });
+
+
+    </script>
+
+
+</head>
+
+
+<body>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-7">
+        <img style="width: 150px; height: 150px; margin-left: 493px; " src="~/images/aulogo.jpg" />
+        <div class="login-container">
+
+            <div class="login">
+
+                <div>
+                    <div class="logo">ROOM MANAGEMENT SYSTEM</div>
+
+                    <form action="LOGINlink/Login" id="loginForm" method="post">
+
+
+                        <div style="margin-top: 30px;">
+
+                        </div>
+                        <input type="text" id="username" name="userID" placeholder="Username" class="login_username" /><br />
+
+                        <input type="password" id="password" name="userPassword" placeholder="Password" class="login_password"><br />
+                        <span class="btn-group">
+                            <input type="submit" id="loginButton" value="Login" class="login_button">
+
+                        </span>
+
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+        
+ </div>
+
+   
+
+</body>
+</html>
+
+

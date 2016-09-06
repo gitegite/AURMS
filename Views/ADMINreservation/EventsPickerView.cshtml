@@ -1,0 +1,108 @@
+﻿@model IEnumerable<AURMS.Models.EventReservation>
+
+@{
+    ViewBag.Title = "EventsPickerView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .event {
+        border-radius: 10px;
+        border: 2px solid #73AD21;
+        padding-right: 5px;
+    }
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />
+
+
+
+<script>
+    function addReservation(EventID, EventName) {
+        $(document).ready(function () {
+            sessionStorage.setItem("EventName", EventName);
+            sessionStorage.setItem("EventID", EventID);
+            location.href = "../USERreservation/index";
+        });
+
+    }
+
+</script>
+<body>
+
+    <br />
+    <br />
+
+    <div class="container-fluid">
+        @{
+
+            int eventLength = Model.Count();
+            int eventNum = 1;
+            int j = 0;
+            while (j < eventLength)
+            {
+                <div class="row" style="padding-bottom: 15px;">
+
+                    @foreach (var item in Model)
+                    {
+                        <div class=" col-md-4">
+                            <div class="event">
+                                <div style="text-align:center">@item.EventName</div>
+                                <div style="text-align:center">@item.EventStartDate to @item.EventEndDate</div>
+                                <div>
+                                    @if (item.EventReservations != null)
+                                    {
+                                        int roomNum = 0;
+                                        foreach (var reservation in item.EventReservations)
+                                        {   <div class="reservation">
+
+                                            <div style="margin-left:15px">
+                                                    <div class="row" style="padding-left:10px">
+                                                        <div class="col-md-7">
+                                                            @((roomNum++) + 1). @reservation.RoomNumber:
+                                                            @reservation.StartTime - @reservation.EndTime
+
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            @if (reservation.Status == 0)
+                                                            { <span style="margin-left:10px" class="label label-danger">Rejected</span>}
+                                                            else if (reservation.Status < 999)
+                                                            {<span style="margin-left:10px" class="label label-primary">Waiting</span>}
+                                                            else if (reservation.Status == 999)
+                                                            { <span style="margin-left:10px" class="label label-warning">1st Approved</span>}
+                                                            else if (reservation.Status == 1000)
+                                                            { <span style="margin-left:10px" class="label label-success">Approved</span> }
+                                                        </div>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        }
+                                    }
+                                </div>
+                                <hr />
+                                <div style="text-align:center">
+                                    <button style="margin-bottom:20px" type="button" onclick="addReservation('@item.EventID','@item.EventName')">Add Room</button>
+                                    <a style="margin-bottom:20px; margin-left:20px" href="../EventPicker/GetEventDetailForDirector?eventID=@item.EventID.ToString()">Detail</a>
+                                </div>
+
+                            </div>
+                        </div>
+
+                                    eventNum++;
+                                    if (eventNum > eventLength)
+                                    {
+
+                                        break;
+                                    }
+
+                    }
+                </div>
+                    j = eventNum;
+            }
+
+        }
+    </div>
+</body>

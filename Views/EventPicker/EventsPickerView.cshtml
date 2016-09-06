@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AURMS.Models.EventReservation>
+
+@{
+    ViewBag.Title = "EventsPickerView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+<style>
+    .event {
+        border-radius: 10px;
+        border: 2px solid #73AD21;
+        padding-right: 5px;
+    }
+</style>
+<body>
+
+    <h2>EventPickerView</h2>
+    <div class="container-fluid">
+        @{
+            int eventLength = 11;
+            int eventNum = 1;
+            int j = 0;
+            while (j < eventLength)
+            {
+                <div class="row" style="padding-bottom: 15px;">
+                    @for (int i = 0; i < 4; i++)
+                    {
+                        <div class=" col-md-3">
+                            <div class="event">
+                                <div style="text-align:center">Event @eventNum</div>
+                                <hr />
+                                <button><span class ="glyphicon glyphicon-plus"></span></button>
+                            </div>
+                        </div>
+                        eventNum++;
+                        if (eventNum > eventLength)
+                        {
+
+                            break;
+                        }
+                    }
+                </div>
+                    j = eventNum;
+            }
+
+        }
+        @*<div class="row">
+                <div class="col-md-3">
+                    <div class="event">Event1</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="event">Event2</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="event">Event3</div>
+                </div>
+                <div class="col-md-3">
+                    <div class="event">Event4</div>
+                </div>
+            </div>*@
+    </div>
+</body>

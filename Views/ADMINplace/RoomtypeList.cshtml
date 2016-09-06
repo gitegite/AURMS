@@ -1,0 +1,40 @@
+﻿@model IEnumerable<AURMS.RoomType>
+
+@{
+    ViewBag.Title = "RoomtypeList";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+
+<form action="~/ADMINplace/CreateRoomtype" style="margin-top: 50px;">
+    <span class="btn-group">
+        <input type="submit" id="createButton" value="+CREATE ROOM TYPE" class="login_button">
+    </span>
+</form>
+<table class="table" style="margin-top: 30px;">
+    
+    <tr>
+        <th>
+            Room Type
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomTypeName)
+            </td>
+            @*<td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.RoomTypeID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.RoomTypeID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.RoomTypeID })
+    </td>*@
+        </tr>
+    }
+
+</table>

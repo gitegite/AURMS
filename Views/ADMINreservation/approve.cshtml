@@ -1,0 +1,190 @@
+﻿@model IEnumerable<AURMS.Classes.ReservationList>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<h3>
+    Pending list
+</h3>
+<table class="table">
+    <tr>
+        <th>
+            Student ID
+        </th>
+        <th>
+            Room
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model)*@
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        if (Model.ElementAt(i).Status < 100)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Room)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Status)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(1).ReservationRecordID }) @*|
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+<h3>
+    Approved List
+</h3>
+<table class="table">
+    <tr>
+        <th>
+            Student ID
+        </th>
+        <th>
+            Room
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model)*@
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        if (Model.ElementAt(i).Status == Int16.Parse(Session["usergroup"].ToString().Trim()) || Model.ElementAt(i).Status == 999)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Room)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Status)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(1).ReservationRecordID }) @*|
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    }
+
+</table>
+
+<h3>
+    Rejected List
+</h3>
+<table class="table">
+    <tr>
+        <th>
+            Student ID
+        </th>
+        <th>
+            Room
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @*@foreach (var item in Model)*@
+    @for (int i = 0; i < Model.Count(); i++)
+    {
+        if (Model.ElementAt(i).Status == 0)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Room)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).StartTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).EndTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(e => e.ElementAt(i).Status)
+                </td>
+
+                <td>
+                    @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |*@
+                    @Html.ActionLink("Details", "Details", new { id = Model.ElementAt(i).ReservationRecordID }) @*|
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                </td>
+            </tr>
+        }
+    }
+
+</table>

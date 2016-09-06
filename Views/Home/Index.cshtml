@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "Admin Schedule";
+   
+}
+@*<link href="@Url.Content("~/Content/cssStyle.css")" rel="stylesheet" type="text/css" />*@
+
+<link href="@Url.Content("~/bootstrap/css/bootstrap.min.css")" rel="stylesheet" type="text/css">
+<link href="@Url.Content("~/css/font-awesome.min.css")" rel="stylesheet" type="text/css">
+
+<link href="@Url.Content("~/css/rmsStyle.css")" rel="stylesheet" type="text/css" />
+
+
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="row">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="col-md-2 col-sm-2 col-xs-12">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="" class="navbar-brand">LOGO HERE</a>
+                </div>
+            </div>
+
+            <div class="col-md-10 col-sm-10 col-xs-12">
+                <div class="navbar-collapse collapse menu">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="/Home/Index" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/calender.png" style="height: 40px;" />
+                                    <div style="margin-top: 1px;  text-align: center;  width: 100%; ">SCHEDULE</div>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../ADMINreservation/List" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/list.png" style="height: 40px;" padding-left 13px;" />
+                                    <div style="margin-top: 1px; text-align: center;  width:100%;  ">LIST</div>
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            
+                            <a href="../ADMINplace/Admin" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/campus.png" style="height: 40px;" padding-left 13px;" />
+                                    <div style="margin-top: 1px;  text-align: center;  width:100%  ">CAMPUS</div>
+                                </span>
+                            </a>
+                        
+                        </li>
+                        
+                        <li>
+                            
+                           
+                            <a href="../ADMINequipment/EquipmentList" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/equip.png" style="height: 40px;" padding-left 13px;" />
+                                    <div style="margin-top: 1px;  text-align: center;  width:100%;  ">EQUIPMENT</div>
+                                </span>
+                            </a>
+                        
+                        
+                        </li>
+                        <li>
+                            
+                            <a href="../ADMINplace/RoomtypeList" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/roomtype.png" style="height: 40px;" padding-left 13px;" />
+                                    <div style="margin-top: 1px;  text-align: center;  width: 100%;  ">ROOM TYPE</div>
+                                </span>
+                            </a>
+
+                        
+                        </li>
+
+                         <li>
+                            <a href="../" style="padding:0px 0px 2px 0px;">
+                                <span class="link-menu">
+                                    <img src="~/images/logout.png" style="height: 40px;" />
+                                    <div style="margin-top: 1px; text-align: center;  width:100%; ">LOGOUT</div>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div>
+        </div><!-- /.row -->
+    </div>
+</nav>
+
+@*<style>
+    li:hover {
+        background: rgb(210, 215, 211);
+    }
+</style>
+<nav style="background: rgb(238, 238, 238)" class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../ADMINreservation/List">Room management system</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li style="border-right: 1px solid snow;">@Html.ActionLink("Home", "../Home/index")</li>
+                <li style="border-right: 1px solid snow;">@Html.ActionLink("Show List", "../ADMINreservation/List")</li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Manage<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li>@Html.ActionLink("Campus", "../ADMINPlace/Admin")</li>
+                        <li>@Html.ActionLink("Equipment", "../ADMINEquipment/EquipmentList")</li>
+                        <li>@Html.ActionLink("Room Type", "../adminplace/roomtypelist")</li>
+                    </ul>
+                </li>
+                <li>@Html.ActionLink("Logout", "Logout", "LOGINlink")</li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>*@
+
+<div class="scheduler_body">
+    <div class="scheduler_container">
+        @Html.Raw(Model.Render())
+    </div>
+</div>
+
+
